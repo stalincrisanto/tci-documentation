@@ -1,0 +1,15 @@
+{
+  "name": "tci-docs",
+  "version": "1.0.0",
+  "description": "tci graphql api documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gh-pages": "^3.2.3",
+    "spectaql": "^0.11.0"
+  }
+}

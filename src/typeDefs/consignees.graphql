@@ -1,0 +1,68 @@
+"Definition of data types corresponding to Consignee"
+type Consignee {
+  "Required field ID corresponding to Consignee"
+  id: ID!
+  "Required field name corresponding to Consignee"
+  name: String!
+  "Required field email corresponding to Consignee"
+  email: String!
+  "Required field productName corresponding to Consignee"
+  productName: String!
+}
+"Defining the data types corresponding to the [`Consignee`]({{Types.Consignee}}), which is used in the [`consignees`]({{Queries.consignees}}) query to return all registered consignee records"
+type ConsigneeCountable {
+  "Data of type Array of [`Consignee`]({{Types.Consignee}})"
+  data: [Consignee]
+  "Total number of consignees found"
+  total: Int
+}
+
+extend type Query {
+  "Query to get an Consignee acording one ID"
+  consignee(
+    "ID parameter that allows obtaining information from an consignees"
+    id: ID!
+  ): Consignee
+  "Query to get many consignees according to an offset number, limit and filters"
+  consignees(
+    "Number of consignees records to skip"
+    offset: Int!
+    "Maximum number of consignees records displayed on each page"
+    limit: Int!
+    "Filters to search for an consignees"
+    filters: [FilterInput]
+  ): ConsigneeCountable
+}
+
+"Input data type for mutation [`consigneeCreate`]({{Mutations.consigneeCreate}}), the fields coresponding to definition of type [`Consignee`]({{Types.Consignee}})"
+input CreateConsigneenput {
+  id: ID!
+  name: String!
+  email: String!
+  productName: String!
+}
+"Input data type for mutation [`consigneeUpdate`]({{Mutations.consigneeUpdate}}), the fields coresponding to definition of type [`Consignee`]({{Types.Consignee}})"
+input UpdateConsigneeInput {
+  id: ID!
+  name: String
+  email: String
+  productName: String
+}
+
+extend type Mutation {
+  "Mutation to Create new record of [`Consignee`]({{Types.Consignee}})"
+  consigneeCreate(
+    "Parameter of type input [`CreateConsigneenput`]({{Types.CreateConsigneenput}})"
+    input: CreateConsigneenput!
+  ): Boolean
+  "Mutation to Update a record of [`Consignee`]({{Types.Consignee}})"
+  consigneeUpdate(
+    "Parameter of type input [`UpdateConsigneeInput`]({{Types.UpdateConsigneeInput}})"
+    input: UpdateConsigneeInput!
+  ): Boolean
+  "Mutation to Delete a record of [`Consignee`]({{Types.Consignee}})"
+  consigneeDelete(
+    "Parameter that corresponds to the ID of an [`Consignee`]({{Types.Consignee}})"
+    id: ID!
+  ): Boolean
+}

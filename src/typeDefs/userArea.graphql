@@ -1,0 +1,17 @@
+"Definition of data types corresponding to User Area"
+type UserArea {
+  "Required field ID corresponding to User Area"
+  id: ID!
+  "Required field name corresponding to User Area"
+  name: String!
+}
+
+input UserAreaInput {
+  id: ID!
+  name: String!
+}
+
+extend type Query {
+  "Query to get many [`UserArea`]({{Types.UserArea}})"
+  userAreas: [UserArea]
+}

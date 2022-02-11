@@ -1,0 +1,105 @@
+"Definition of data types corresponding to Agency"
+type Agency {
+  "Required field ID corresponding to Agency"
+  id: ID!
+  "Required field name of agency"
+  name: String!
+  "Required field ruc number of agency"
+  ruc: String!
+  "Required field address of agency"
+  address: String!
+  "Required field email of agency"
+  email: String!
+  "Required field phone number of agency"
+  phoneNumber: String!
+  "Required field code of agency"
+  code: String!
+}
+
+"Defining the data types corresponding to the Agency Countable, which is used in the [`agencies`]({{Queries.agencies}}) query to return all registered agency records"
+type AgencyCountable {
+  "Data of type Array of [`Agency`]({{Types.Agency}})"
+  data: [Agency]
+  "Total number of agencies found"
+  total: Int
+}
+
+extend type Query {
+  "Query to get an Agency acording one ID"
+  agency(
+    "ID parameter that allows obtaining information from an agency"
+    id: ID!
+  ): Agency
+  "Query to get many agencies according to an offset number, limit and filters"
+  agencies(
+    "Number of agency records to skip"
+    offset: Int!,
+    "Maximum number of agency records displayed on each page"
+    limit: Int!,
+    "Filters to search for an agency" 
+    filters: [FilterInput]
+  ): AgencyCountable
+  "Query to get many consignes on Agency according to an offset number, limit and filters"
+  consigneesOnAgency(
+    "Number of consignees on agency records to skip"
+    offset: Int!,
+    "Maximum number of consignees on agency records displayed on each page" 
+    limit: Int!,
+    "Filters to search for specific agency records" 
+    filters: [FilterInput]
+  ): ConsigneeCountable
+}
+
+"Input data type for mutation [`agencyCreate`]({{Mutations.agencyCreate}}), the fields coresponding to definition of type [`Agency`]({{Types.Agency}})"
+input CreateAgencyInput {
+  id: ID!
+  name: String!
+  ruc: String!
+  address: String!
+  email: String!
+  phoneNumber: String!
+  code: String!
+}
+
+"Input data type for [`agencyUpdate`]({{Mutations.agencyUpdate}}), the fields coresponding to definition of type [`Agency`]({{Types.Agency}})"
+input UpdateAgencyInput {
+  id: ID!
+  name: String
+  ruc: String
+  address: String
+  email: String
+  phoneNumber: String
+  code: String
+}
+
+extend type Mutation {
+  "Mutation to Create new record of [`Agency`]({{Types.Agency}})"
+  agencyCreate(
+    "Parameter of type input [`CreateAgencyInput`]({{Types.CreateAgencyInput}})"
+    input: CreateAgencyInput!
+  ): Boolean
+  "Mutation to Update a record of [`Agency`]({{Types.Agency}})"
+  agencyUpdate(
+    "Parameter of type input [`UpdateAgencyInput`]({{Types.UpdateAgencyInput}})"
+    input: UpdateAgencyInput!
+  ): Boolean
+  "Mutation to Delete a record of [`Agency`]({{Types.Agency}})"
+  agencyDelete(
+    "Parameter that corresponds to the ID of an [`Agency`]({{Types.Agency}})"
+    id: ID!
+  ): Boolean
+  "Mutation to Create new record of [`Consignee`]({{Types.Consignee}}) on [`Agency`]({{Types.Agency}})"
+  consigneeOnAgencyAdd(
+    "Parameter that corresponds to the ID of an [`Agency`]({{Types.Agency}})"
+    agencyId: ID!, 
+    "Parameter that corresponds to the ID of a [`Consignee`]({{Types.Consignee}})"
+    consigneeId: ID!
+  ):Boolean
+  "Mutation to Remove a record of [`Consignee`]({{Types.Consignee}}) on [`Agency`]({{Types.Agency}})"
+  consigneeOnAgencyRemove(
+    "Parameter that corresponds to the ID of an [`Agency`]({{Types.Agency}})"
+    agencyId: ID!,
+    "Parameter that corresponds to the ID of a [`Consignee`]({{Types.Consignee}})" 
+    consigneeId: ID!
+  ):Boolean
+}

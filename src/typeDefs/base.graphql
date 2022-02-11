@@ -1,0 +1,24 @@
+directive @isAuth on FIELD_DEFINITION
+"Initialization query"
+type Query {
+  _: String
+}
+"Initialization mutation"
+type Mutation {
+  _: String
+}
+"Definicion de operadores para [`FilterInput`]({{Types.FilterInput}})"
+enum Operator {
+  EQUAL
+  CONTAINS
+  NOT_EQUAL
+}
+"Input data type which allows to set the search filters"
+input FilterInput {
+  "Search field definition"
+  field: String!
+  "Search operator definition"
+  operator: Operator!
+  "Value entered for search"
+  value: String!
+}

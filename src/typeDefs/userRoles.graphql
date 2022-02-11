@@ -1,0 +1,17 @@
+"Definition of data types corresponding to User Role"
+type UserRole {
+  "Required field ID corresponding to User Role"
+  id: ID!
+  "Required field name corresponding to User Role"
+  name: String!
+}
+
+input UserRoleInput {
+  id: ID!
+  name: String!
+}
+
+extend type Query {
+  "Query to get many [`UserRole`]({{Types.UserRole}})"
+  userRoles: [UserRole]
+}

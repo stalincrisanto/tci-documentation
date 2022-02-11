@@ -1,0 +1,80 @@
+"Definition of data types corresponding to User"
+type User {
+  "Required field ID corresponding to User"
+  id: ID!
+  "Required field email corresponding to User"
+  email: String!
+  "Required field full name corresponding to User"
+  fullName: String!
+  "Required field phone number corresponding to User"
+  phoneNumber: String!
+  "Required field type [`UserArea`]({{Types.UserArea}}) corresponding to User"
+  area: UserArea!
+  "Required field type [`UserRole`]({{Types.UserRole}}) corresponding to User"
+  role: UserRole!
+}
+"Defining the data types corresponding to the [`User`]({{Types.User}}), which is used in the [`users`]({{Queries.users}}) query to return all registered user records"
+type UserCountable {
+  "Data of type Array of [`User`]({{Types.User}})"
+  data: [User!]!
+  "Total number of users found"
+  total: Int!
+}
+
+extend type Query {
+  "Query to get many users according to an offset number, limit and filters"
+  users(
+    "Number of users records to skip"
+    offset: Int!, 
+    "Maximum number of users records displayed on each page"
+    limit: Int!,
+    "Filters to search for an users" 
+    filters: [FilterInput]
+  ): UserCountable
+  "Query to get an user acording one ID"
+  user(
+    "ID parameter that allows obtaining information from an users"
+    id: ID!
+  ): User
+}
+"Input data type for mutation [`userCreate`]({{Mutations.userCreate}}), the fields coresponding to definition of type [`User`]({{Types.User}})"
+input CreateUserInput {
+  id: ID!
+  email: String!
+  fullName: String!
+  phoneNumber: String!
+  area: UserAreaInput!
+  role: UserRoleInput!
+}
+"Input data type for mutation [`userUpdate`]({{Mutations.userUpdate}}), the fields coresponding to definition of type [`User`]({{Types.User}})"
+input UpdateUserInput {
+  id: ID!
+  email: String
+  fullName: String
+  phoneNumber: String
+  area: UserAreaInput
+  role: UserRoleInput
+}
+
+input SignInUserInput {
+  email: String!
+  password: String!
+}
+
+extend type Mutation {
+  "Mutation to Create new record of [`User`]({{Types.User}})"
+  userCreate(
+    "Parameter of type input [`CreateUserInput`]({{Types.CreateUserInput}})"
+    input: CreateUserInput!
+  ): Boolean
+  "Mutation to Update a record of [`User`]({{Types.User}})"
+  userUpdate(
+    "Parameter of type input [`UpdateUserInput`]({{Types.UpdateUserInput}})"
+    input: UpdateUserInput!
+  ): Boolean
+  "Mutation to Delete a record of [`User`]({{Types.User}})"
+  userDelete(
+    "Parameter that corresponds to the ID of an [`User`]({{Types.User}})"
+    id: ID!
+  ): Boolean
+}

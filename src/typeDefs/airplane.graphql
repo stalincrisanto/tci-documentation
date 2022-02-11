@@ -1,0 +1,73 @@
+"Definition of data types corresponding to Airplane"
+type Airplane {
+  "Required field ID corresponding to Airplane"
+  id: ID!
+  "Required field type corresponding to Airplane"
+  type: String!
+  "Required field model corresponding to Airplane"
+  model: String!
+  "Required field plate corresponding to Airplane"
+  plate: String!
+}
+"Defining the data types corresponding to the [`Airplane`]({{Types.Airplane}}), which is used in the [`airplanes`]({{Queries.airplanes}}) query to return all registered airplane records"
+type AirplaneCountable {
+  "Data of type Array of [`Airplane`]({{Types.Airplane}})"
+  data: [Airplane!]
+  "Total number of airplane found"
+  total: Int
+}
+
+
+extend type Query {
+  "Query to get many airplanes according to an offset number, limit and filters"
+  airplanes(
+    "Number of airplanes records to skip"
+    offset: Int!,
+    "Maximum number of airplanes records displayed on each page"
+    limit: Int!,
+    "Filters to search for an airplanes"
+    filters: [FilterInput]
+  ): AirplaneCountable
+  "Query to get an Airplane acording one ID"
+  airplane(
+    "ID parameter that allows obtaining information from an airplane"
+    id: ID!
+  ): Airplane
+  aiplaneModels: [String]
+  airplaneTypes: [String]
+}
+
+"Input data type for mutation [`airplaneCreate`]({{Mutations.airplaneCreate}}), the fields coresponding to definition of type [`Airplane`]({{Types.Airplane}})"
+input CreateAirplaneInput {
+  id: ID!
+  type: String!
+  model: String!
+  plate: String!
+}
+
+"Input data type for mutation [`airplaneUpdate`]({{Mutations.airplaneUpdate}}), the fields coresponding to definition of type [`Airplane`]({{Types.Airplane}})"
+input UpdateAirplaneInput {
+  id: ID!
+  type: String
+  model: String
+  plate: String
+}
+
+
+extend type Mutation {
+  "Mutation to Create new record of [`Airplane`]({{Types.Airplane}})"
+  airplaneCreate(
+    "Parameter of type input [`CreateAirplaneInput`]({{Types.CreateAirplaneInput}})"
+    input: CreateAirplaneInput!
+  ): Boolean
+  "Mutation to Update a record of [`Airplane`]({{Types.Airplane}})"
+  airplaneUpdate(
+    "Parameter of type input [`UpdateAirplaneInput`]({{Types.UpdateAirplaneInput}})"
+    input: UpdateAirplaneInput!
+  ): Boolean
+  "Mutation to Delete a record of [`Airplane`]({{Types.Airplane}})"
+  airplaneDelete(
+    "Parameter that corresponds to the ID of an [`Airplane`]({{Types.Airplane}})"
+    id: String!
+  ): Boolean
+}

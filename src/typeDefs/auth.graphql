@@ -1,0 +1,47 @@
+"Definition of data types corresponding to User Role Auth"
+type UserRoleAuth {
+  "Required field ID corresponding to User Role Auth"
+  id: ID!
+  "Required field name corresponding to User Role Auth"
+  name: String!
+  "Required field permissions corresponding to User Role Auth"
+  permissions: [String]!
+}
+"Definition of data types corresponding to User Auth"
+type UserAuth {
+  "Required field ID corresponding to User Auth"
+  id: ID!
+  "Required field email corresponding to User Auth"
+  email: String!
+  "Required field fullname corresponding to User Auth"
+  fullName: String!
+  "Required field phone number corresponding to User Auth"
+  phoneNumber: String!
+  "Required field type [`UserArea`]({{Types.UserArea}}) corresponding to User Auth"
+  area: UserArea!
+  "Required field type [`UserRole`]({{Types.UserRole}}) corresponding to User Auth"
+  role: UserRoleAuth!
+}
+"Definition of data types corresponding to Auth that have the session tokens"
+type Auth {
+  "Required field type [`UserAuth`]({{Types.UserAuth}}) corresponding to Auth"
+  user: UserAuth!
+  "Required field accessToken corresponding to Auth"
+  accessToken: String!
+  "Required field refreshToken corresponding to Auth"
+  refreshToken: String!
+}
+"Input data type for mutation [`userSignIn`]({{Mutations.userSignIn}}) that allows you to log into the system"
+input SignInUserInput {
+  email: String!
+  password: String!
+}
+
+extend type Mutation {
+  "Mutation to log into the system"
+  userSignIn(
+    "Parameter of type input [`SignInUserInput`]({{Types.SignInUserInput}})"
+    input: SignInUserInput!
+  ): Auth
+}
+
