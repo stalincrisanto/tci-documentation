@@ -5,8 +5,7 @@
   "description": "tci graphql api documentation",
   "main": "index.js",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "publish": "gh-pages -d src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
